@@ -1,0 +1,7 @@
+.ingredients {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 0 16px 40px;
+    margin: 0;
+}
