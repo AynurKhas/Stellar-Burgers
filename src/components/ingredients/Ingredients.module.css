@@ -5,3 +5,9 @@
     padding: 0 16px 40px;
     margin: 0;
 }
+
+
+.menu__subtitle {
+    text-align: left;
+    padding: 40px 0 24px;
+}

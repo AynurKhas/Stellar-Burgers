@@ -1,7 +1,8 @@
 import React from "react";
 import { data } from "../utils/data";
-import './Ingredients.css';
+import s from './Ingredients.module.css';
 import Specification from "../specification/specification";
+import PropTypes from "prop-types";
 
 export default class Ingredients extends React.Component {
     constructor(props) {
@@ -17,8 +18,8 @@ export default class Ingredients extends React.Component {
         )
         return (
             <>
-            <h2 className="menu__subtitle text text_type_main-medium">{this.props.children}</h2>
-            <ul className="ingredients">
+            <h2 className={`${s.menu__subtitle} text text_type_main-medium`}>{this.props.children}</h2>
+            <ul className={s.ingredients}>
                 {arr.map(item => (
                     <Specification item={item} key={item._id} />
                 )
@@ -28,3 +29,7 @@ export default class Ingredients extends React.Component {
         )
     }
 }
+
+Ingredients.propTypes = {
+    type: PropTypes.string.isRequired
+  };

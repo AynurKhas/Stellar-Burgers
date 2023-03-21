@@ -1,11 +1,11 @@
 import React from "react";
 import BurgerConstructor from "../burgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../burgerIngredients/burgerIngredients";
-import './main.css'
+import s from './main.module.css'
 
 function Main() {
     return (
-        <main className="main">
+        <main className={s.main}>
             <BurgerIngredients />
             <BurgerConstructor/>
         </main>
