@@ -6,15 +6,20 @@ import PropTypes from "prop-types";
 export default class Specification extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { count: false };
+        this.state = {
+            count: false,
+        };
     }
 
     render() {
         const item = this.props.item;
 
         return (
-            <li className={s.ingredients__items} >
-                <article className={s.specification}>
+            <li className={s.ingredients__items} onClick={() => {
+                this.setState({
+                    count: !this.state.count
+                })}}>
+                <article className={s.specification} >
                     <img src={`${item.image}`} alt={`${item.name}`} className={s.specification__img} />
                     <ul className={s.specification__container}>
                         <li className={s["specification__container-item"]}>
@@ -38,4 +43,4 @@ Specification.propTypes = {
         image: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired
     })
-};
+}.isRequired;

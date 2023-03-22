@@ -15,23 +15,23 @@ function AppHeader() {
             <nav className={s.header__menu}>
                 <ul className={s.header__elementsContainer}>
                     <li className={s.header__elementsContainerItems}>
-                        <button type="button" className={s.header__element}>
+                        <a href="/" className={s.header__element}>
                             <BurgerIcon type="primary" />
                             <HeaderTextElement active={""}>Конструктор</HeaderTextElement>
-                        </button>
+                        </a>
                     </li>
                     <li className={s.header__elementsContainerItems}>
-                        <button type="button" className={s.header__element}>
+                        <a href="/" className={s.header__element}>
                             <ListIcon type="secondary" />
                             <HeaderTextElement active={"text_color_inactive"}>Лента заказов</HeaderTextElement>
-                        </button>
+                        </a>
                     </li>
                 </ul>
                 <a href="/" className={s.header__logo}><Logo /></a>
-                <button type="button" className={s.header__element}>
+                <a href="/" className={s.header__element}>
                     <ProfileIcon type="secondary" />
                     <HeaderTextElement active={"text_color_inactive"}>Личный кабинет</HeaderTextElement>
-                </button>
+                </a>
             </nav>
         </header>
     )
@@ -39,6 +39,11 @@ function AppHeader() {
 
 AppHeader.propTypes = {
     active: PropTypes.string
-  };
+};
+  
+HeaderTextElement.propTypes = {
+    children: PropTypes.string,
+    active: PropTypes.string.isRequired
+}
 
 export default AppHeader

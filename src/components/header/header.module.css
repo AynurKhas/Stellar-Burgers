@@ -29,8 +29,8 @@
     border: none;
     font: inherit;
     color: inherit;
-    cursor: pointer;
     background-color: inherit;
+    text-decoration: none;;
     /* min-width: 197px; */
 }
 
