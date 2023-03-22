@@ -30,6 +30,14 @@ export default class Ingredients extends React.Component {
     }
 }
 
-Ingredients.propTypes = {
+/* Ingredients.propTypes = {
     type: PropTypes.string.isRequired
-  };
+}; */
+  
+Ingredients.propTypes = {
+    item: PropTypes.shape({
+        proteins: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
+    })
+}.isRequired;

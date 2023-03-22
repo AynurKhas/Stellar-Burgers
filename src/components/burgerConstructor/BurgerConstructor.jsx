@@ -22,7 +22,6 @@ export default class BurgerConstructor extends React.Component {
             item.type !== "bun"))
 
         const total = arrBun[0].price + arrNoBun.reduce((acc, p) => acc + p.price, 0)
-        console.log(total);
 
         return (
             <section className={sb.burgerConstructor}>
@@ -37,7 +36,7 @@ export default class BurgerConstructor extends React.Component {
                     </span>
                     <ul className={`${sb.burgerConstructor__container} ${s.scroll}`}>
                         {arrNoBun.map(item => (
-                            <li className={sb["burgerConstructor__container-items"]}>
+                            <li className={sb["burgerConstructor__container-items"]}  key={item._id}>
                                 <DragIcon type="primary" />
                                 <ConstructorElement
                                     text={item.name}
@@ -68,8 +67,11 @@ export default class BurgerConstructor extends React.Component {
     }
 }
 
+
 BurgerConstructor.propTypes = {
-    text: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    thumbnail: PropTypes.string.isRequired
-}
+    item: PropTypes.shape({
+        proteins: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
+    })
+}.isRequired;
