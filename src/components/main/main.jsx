@@ -1,16 +1,20 @@
-import React from "react";
 import BurgerConstructor from "../burgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../burgerIngredients/burgerIngredients";
 import s from './main.module.css'
+import PropTypes from "prop-types";
 
-function Main() {
+function Main({ data }) {
     return (
         <main className={s.main}>
-            <BurgerIngredients />
-            <BurgerConstructor/>
+            <BurgerIngredients data={data} />
+            <BurgerConstructor data={data} />
         </main>
     )
     
+}
+
+Main.propTypes = {
+    data: PropTypes.array.isRequired,
 }
 
 export default Main
