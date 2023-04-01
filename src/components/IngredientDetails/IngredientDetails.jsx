@@ -1,14 +1,15 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from '../modal.css/modal.module.css'
+import PropTypes from "prop-types";
 
-const IngredientDetails = ({ onClose, product }) => {
+const IngredientDetails = ({ product, setShowModal }) => {
 
     return (
-        <div className={s.modal} >
+        <div className={s.modal} onMouseDown={(e) => e.stopPropagation()} >
             <article className={s.modal__article} >
                 <div className={s.modal__headerContainer}>
                     <h2 className={`${s.modal__title} text text_type_main-large`}>Детали ингредиента</h2>
-                    <span onClickCapture={onClose}><CloseIcon type="primary" /></span>                    
+                    <span onClickCapture={() => setShowModal(false)}><CloseIcon type="primary" /></span>                    
                 </div>
                 <img src={product.image_large} alt={product.name} className={s.modal__image} style={{ maxWidth: "520px", width: "100%" }} />
                 <p className={`${s.modal__subtitle} text text_type_main-medium pt-4`}>{product.name}</p>
@@ -34,6 +35,14 @@ const IngredientDetails = ({ onClose, product }) => {
             </article>
         </div>
     )
+}
+
+IngredientDetails.propTypes = {
+    setShowModal: PropTypes.func.isRequired,
+    product: PropTypes.shape({
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired
+    })
 }
 
 

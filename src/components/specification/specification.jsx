@@ -8,28 +8,18 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 const Specification = ({ item }) => {
     const [showModal, setShowModal] = useState(false);
 
-
-    const handleOpenModal = () => {
-        setShowModal(true);
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
-
-    const handleCloseModalEsc = () => {
+const handleCloseModalEsc = () => {
         setShowModal(false);
     }
 
-
     const modal = (
-        <ModalOverlay onClose={handleCloseModal} onClosEsc={handleCloseModalEsc} >
-            <IngredientDetails onClose={handleCloseModal} product={item} />
+        <ModalOverlay setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
+            <IngredientDetails product={item} setShowModal={setShowModal} />
         </ ModalOverlay>
     );
 
     return (
-        <li className={s.ingredients__items} style={{ overflow: 'hidden' }} onClick={handleOpenModal}>
+        <li className={s.ingredients__items} style={{ overflow: 'hidden' }} onClick={() => setShowModal(true)}>
             <article className={s.specification} >
                 <img src={`${item.image}`} alt={`${item.name}`} className={s.specification__img} />
                 <ul className={s.specification__container}>

@@ -8,21 +8,11 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 
 
 export default function BurgerConstructor({ data }) {
-
     const [showModal, setShowModal] = useState(false);
-
-    const handleOpenModal = () => {
-        setShowModal(true);
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
 
     const handleCloseModalEsc = () => {
         setShowModal(false);
     }
-
 
     const arrBun = data.filter(item => (
         item.type === "bun"));
@@ -33,8 +23,8 @@ export default function BurgerConstructor({ data }) {
     const total = arrBun[0].price + arrNoBun.reduce((acc, p) => acc + p.price, 0);
 
     const modal = (
-        <ModalOverlay onClose={handleCloseModal} onClosEsc={handleCloseModalEsc} >
-            <OrderDetails onClose={handleCloseModal} product={data} />
+        <ModalOverlay setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
+            <OrderDetails setShowModal={setShowModal} product={data} />
         </ ModalOverlay>
     );
 
@@ -68,12 +58,11 @@ export default function BurgerConstructor({ data }) {
                         price={arrBun[0].price}
                         thumbnail={arrBun[0].image_mobile} />
                 </span>
-
             </div>
             <div className={`${sb.order} mt-10 pr-4`}>
                 <p className="text text_type_digits-medium" style={{ paddingRight: '9.5px' }}>{total}</p>
                 <CurrencyIcon type="primary" />
-                <Button htmlType="button" type="primary" size="large" style={{ marginLeft: '16px' }} onClick={handleOpenModal} >
+                <Button htmlType="button" type="primary" size="large" style={{ marginLeft: '16px' }} onClick={()=>setShowModal(true)} >
                     Оформить заказ
                 </Button>
             </div>

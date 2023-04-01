@@ -1,12 +1,12 @@
 import { createPortal } from 'react-dom';
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import s from './ModalOverlay.module.css';
 import PropTypes from "prop-types";
 
 
 const modalRoot = document.getElementById("react-modals");
 
-const ModalOverlay = ({ onClose, onClosEsc, children }) => {
+const ModalOverlay = ({ onClosEsc, children, setShowModal }) => {
 
     function keydownHandler(evt) {
         if (evt.key === 'Escape') {
@@ -32,9 +32,7 @@ const ModalOverlay = ({ onClose, onClosEsc, children }) => {
 
     return createPortal(
         <>
-            <div className={s.modalOverlay} onMouseDown={(e) => {
-                if ((e.target === e.currentTarget)) { onClose() }
-            }}>
+            <div className={s.modalOverlay} onMouseDown={() => setShowModal(false)}>
                 {children}
             </div>
         </>
@@ -43,9 +41,9 @@ const ModalOverlay = ({ onClose, onClosEsc, children }) => {
 }
 
 ModalOverlay.propTypes = {
-        onClose: PropTypes.func.isRequired,
-        onClosEsc: PropTypes.func.isRequired,
-        children: PropTypes.object
+    setShowModal: PropTypes.func,
+    onClosEsc: PropTypes.func.isRequired,
+    children: PropTypes.object
 }
 
 export default ModalOverlay
