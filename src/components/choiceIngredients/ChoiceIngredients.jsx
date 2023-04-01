@@ -3,29 +3,31 @@ import React from "react";
 import PropTypes from "prop-types";
 
 
-export function Choice({ choice }) {
+const ChoiceIngredients = ({ choice }) => {
     const [current, setCurrent] = React.useState();
 
-    React.useEffect(() => {   
+    const heandleChoice = (current) => {
+        setCurrent(current);
         choice(current);
-    }, [current])
-
+    }
 
     return (
         <div style={{ display: 'flex' }}>
-            <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>
+            <Tab value="bun" active={current === 'bun'} onClick={heandleChoice}>
                 Булки
             </Tab>
-            <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+            <Tab value="sauce" active={current === 'sauce'} onClick={heandleChoice}>
                 Соусы
             </Tab>
-            <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+            <Tab value="main" active={current === 'main'} onClick={heandleChoice}>
                 Начинки
             </Tab>
         </div>
     )
 }
 
-Choice.propTypes = {
+ChoiceIngredients.propTypes = {
     choice: PropTypes.func.isRequired,
 }
+
+export default ChoiceIngredients

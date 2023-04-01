@@ -3,7 +3,7 @@ import BurgerIngredients from "../burgerIngredients/burgerIngredients";
 import s from './main.module.css'
 import PropTypes from "prop-types";
 
-function Main({ data }) {
+const Main = ({ data }) => {
     return (
         <main className={s.main}>
             <BurgerIngredients data={data} />

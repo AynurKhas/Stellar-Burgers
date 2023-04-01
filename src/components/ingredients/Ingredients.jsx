@@ -3,25 +3,24 @@ import s from './Ingredients.module.css';
 import Specification from "../specification/specification";
 import PropTypes from "prop-types";
 
-export default function Ingredients({ data, type }) {
-    const [state, setState] = React.useState({
-        data: data,
-    });
+const Ingredients = ({ data, type }) => {
 
     let ingredient;
     switch (type) {
-        case "bun": 
+        case "bun":
             ingredient = "Булки"
             break;
         case "sauce":
             ingredient = "Соусы"
             break;
-        case "main": 
+        case "main":
             ingredient = "Начинки"
             break;
+        default:
+            ingredient = "Булки"
     }
 
-    const arr = state.data.filter(item =>
+    const arr = data.filter(item =>
         item.type === `${type}`
     )
     return (
@@ -39,6 +38,7 @@ export default function Ingredients({ data, type }) {
 
 Ingredients.propTypes = {
     type: PropTypes.string.isRequired,
-    data: PropTypes.array.isRequired,
-    children: PropTypes.string
+    data: PropTypes.array.isRequired
 };
+
+export default Ingredients

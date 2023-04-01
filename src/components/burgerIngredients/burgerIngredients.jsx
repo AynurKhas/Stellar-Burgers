@@ -1,22 +1,18 @@
 import React from "react";
-import { Choice } from "../choiceIngredients/ChoiceIngredients";
+import  ChoiceIngredients  from "../choiceIngredients/ChoiceIngredients";
 import Ingredients from "../ingredients/Ingredients";
 import sb from './burgerIngredients.module.css';
 import s from "../scroll/scroll.module.css";
 import PropTypes from "prop-types";
 
 
-export default function BurgerIngredients({ data }) {
-    const [show, setShow] = React.useState();
-    
-    const heandleChoice = (item) => {
-        setShow(item);
-    }
+const BurgerIngredients = ({ data }) => {
+    const [show, setShow] = React.useState();    
 
     return (
         <section className={sb.menu}>
             <h1 className={`${sb.menu__title} text text_type_main-large`}>Соберите бургер</h1>
-            <Choice choice={heandleChoice} />
+            <ChoiceIngredients choice={(item) => setShow(item)} />
             { !show && <ul className={`${sb.menu__container} ${s.scroll}`}>
                 <li className={sb["menu__container-items"]}>
                     <Ingredients data={data} type={"bun"} />
@@ -40,3 +36,5 @@ export default function BurgerIngredients({ data }) {
 BurgerIngredients.propTypes = {
     data: PropTypes.array.isRequired,
 }
+
+export default BurgerIngredients

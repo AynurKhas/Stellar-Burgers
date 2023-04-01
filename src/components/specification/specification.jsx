@@ -2,20 +2,16 @@ import { useState } from "react";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from './Specification.module.css';
 import PropTypes from "prop-types";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import Modal from "../modal/Modal";
 
 const Specification = ({ item }) => {
     const [showModal, setShowModal] = useState(false);
 
-const handleCloseModalEsc = () => {
-        setShowModal(false);
-    }
-
     const modal = (
-        <ModalOverlay setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
+        <Modal setShowModal={setShowModal} onClosEsc={() => setShowModal(false)}>
             <IngredientDetails product={item} setShowModal={setShowModal} />
-        </ ModalOverlay>
+        </ Modal>
     );
 
     return (

@@ -4,10 +4,10 @@ import sb from './BurgerConstructor.module.css'
 import s from "../scroll/scroll.module.css";
 import PropTypes from "prop-types";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import Modal from "../modal/Modal";
 
 
-export default function BurgerConstructor({ data }) {
+const BurgerConstructor = ({ data }) => {
     const [showModal, setShowModal] = useState(false);
 
     const handleCloseModalEsc = () => {
@@ -23,9 +23,9 @@ export default function BurgerConstructor({ data }) {
     const total = arrBun[0].price + arrNoBun.reduce((acc, p) => acc + p.price, 0);
 
     const modal = (
-        <ModalOverlay setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
+        <Modal setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
             <OrderDetails setShowModal={setShowModal} product={data} />
-        </ ModalOverlay>
+        </ Modal>
     );
 
     return (
@@ -78,3 +78,5 @@ BurgerConstructor.propTypes = {
         name: PropTypes.string.isRequired
     })
 }.isRequired;
+
+export default BurgerConstructor

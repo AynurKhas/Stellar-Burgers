@@ -1,13 +1,12 @@
 import React from 'react';
-import AppHeader from '../header/header';
+import AppHeader from '../appHeader/AppHeader';
 import Main from '../main/main';
 import { url } from '../utils/constants';
-// import { url } from '../utils/data';
 import './App.css';
 
 
 
-function App() {
+const App = () => {
   const [state, setState] = React.useState({
     isLoading: false,
     hasError: false,
@@ -20,9 +19,9 @@ function App() {
       fetch(url)
         .then(res => res.json())
         .then(data => setState({ ...state, data: data.data, isLoading: false }))
-        .catch(e => {
+        .catch(err => {
           setState({ ...state, hasError: true, isLoading: false });
-          console.log(e);
+          console.log(`Ошибка: ${err.message}`);
         });
     };
     getFilms();

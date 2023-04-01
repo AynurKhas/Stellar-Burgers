@@ -1,15 +1,13 @@
-import React from "react";
-import s from './header.module.css';
-import './header.module.css';
+import s from './AppHeader.module.css';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 import PropTypes from "prop-types";
 
-function HeaderTextElement({ active, children }) {
+const HeaderTextElement = ({ active, children }) => {
     return <p className={`text text_type_main-default ${active}`}>{children}</p>
 }
 
-function AppHeader() {
+const AppHeader = () => {
     return (
         <header className={`${s.header} p-4`}>
             <nav className={s.header__menu}>

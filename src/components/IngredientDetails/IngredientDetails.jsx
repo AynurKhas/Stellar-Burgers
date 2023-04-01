@@ -1,5 +1,5 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import s from '../modal.css/modal.module.css'
+import s from '../modal/modal.module.css'
 import PropTypes from "prop-types";
 
 const IngredientDetails = ({ product, setShowModal }) => {
