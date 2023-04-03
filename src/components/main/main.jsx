@@ -1,5 +1,6 @@
 import BurgerConstructor from "../burgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../burgerIngredients/burgerIngredients";
+import { dataItemForPropTypes } from "../utils/constants";
 import s from './main.module.css'
 import PropTypes from "prop-types";
 
@@ -14,7 +15,7 @@ const Main = ({ data }) => {
 }
 
 Main.propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(dataItemForPropTypes).isRequired
 }
 
 export default Main

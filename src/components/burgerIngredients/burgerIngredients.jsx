@@ -4,6 +4,7 @@ import Ingredients from "../ingredients/Ingredients";
 import sb from './burgerIngredients.module.css';
 import s from "../scroll/scroll.module.css";
 import PropTypes from "prop-types";
+import { dataItemForPropTypes } from "../utils/constants";
 
 
 const BurgerIngredients = ({ data }) => {
@@ -34,7 +35,7 @@ const BurgerIngredients = ({ data }) => {
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(dataItemForPropTypes).isRequired,
 }
 
 export default BurgerIngredients

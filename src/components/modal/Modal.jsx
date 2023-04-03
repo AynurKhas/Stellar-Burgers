@@ -21,7 +21,7 @@ const Modal = ({ onClosEsc, children, setShowModal }) => {
         document.addEventListener('keydown', keydownHandler);
         return () => document.removeEventListener('keydown', keydownHandler);
 
-    })
+    }, [])
 
     return createPortal(
         <>

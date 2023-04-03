@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from './Specification.module.css';
-import PropTypes from "prop-types";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../modal/Modal";
+import { dataItemForPropTypes } from "../utils/constants";
 
 const Specification = ({ item }) => {
     const [showModal, setShowModal] = useState(false);
@@ -36,11 +36,7 @@ const Specification = ({ item }) => {
 }
 
 Specification.propTypes = {
-    item: PropTypes.shape({
-        proteins: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-    })
+    item: dataItemForPropTypes
 }.isRequired;
 
 export default Specification

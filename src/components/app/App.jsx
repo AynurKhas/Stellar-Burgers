@@ -1,8 +1,8 @@
 import React from 'react';
 import AppHeader from '../appHeader/AppHeader';
 import Main from '../main/main';
-import { url } from '../utils/constants';
 import './App.css';
+import { api } from '../utils/Api';
 
 
 
@@ -14,17 +14,12 @@ const App = () => {
   });
 
   React.useEffect(() => {
-    const getFilms = () => {
-      setState({ ...state, hasError: false, isLoading: true });
-      fetch(url)
-        .then(res => res.json())
-        .then(data => setState({ ...state, data: data.data, isLoading: false }))
-        .catch(err => {
-          setState({ ...state, hasError: true, isLoading: false });
-          console.log(`Ошибка: ${err.message}`);
-        });
-    };
-    getFilms();
+    setState({ ...state, hasError: false, isLoading: true });
+    api.getData()
+      .then(data => setState({ ...state, data: data.data, isLoading: false }))
+      .catch(() => {
+        setState({ ...state, hasError: true, isLoading: false })
+      });
   }, []);
 
   const { data, isLoading, hasError } = state;

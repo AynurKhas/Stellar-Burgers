@@ -1,10 +1,11 @@
-import {useState} from "react";
+import { useMemo, useState } from "react";
 import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import sb from './BurgerConstructor.module.css'
 import s from "../scroll/scroll.module.css";
 import PropTypes from "prop-types";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../modal/Modal";
+import { bun, dataItemForPropTypes } from "../utils/constants";
 
 
 const BurgerConstructor = ({ data }) => {
@@ -14,13 +15,17 @@ const BurgerConstructor = ({ data }) => {
         setShowModal(false);
     }
 
-    const arrBun = data.filter(item => (
-        item.type === "bun"));
+    const arrBun = useMemo(() => data.filter(item => (
+        item.type === bun)), [data]);
 
-    const arrNoBun = data.filter(item => (
-        item.type !== "bun"));
+    const arrNoBun = useMemo(() => data.filter(item => (
+        item.type !== bun)), [data]);
 
-    const total = arrBun[0].price + arrNoBun.reduce((acc, p) => acc + p.price, 0);
+
+
+    const total = useMemo(
+        () => arrBun[0].price + arrNoBun.reduce((acc, p) => acc + p.price, 0), [arrBun, arrNoBun]
+    );
 
     const modal = (
         <Modal setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
@@ -41,7 +46,7 @@ const BurgerConstructor = ({ data }) => {
                 </span>
                 <ul className={`${sb.burgerConstructor__container} ${s.scroll}`}>
                     {arrNoBun.map(item => (
-                        <li className={sb["burgerConstructor__container-items"]}  key={item._id}>
+                        <li className={sb["burgerConstructor__container-items"]} key={item._id}>
                             <DragIcon type="primary" />
                             <ConstructorElement
                                 text={item.name}
@@ -62,7 +67,7 @@ const BurgerConstructor = ({ data }) => {
             <div className={`${sb.order} mt-10 pr-4`}>
                 <p className="text text_type_digits-medium" style={{ paddingRight: '9.5px' }}>{total}</p>
                 <CurrencyIcon type="primary" />
-                <Button htmlType="button" type="primary" size="large" style={{ marginLeft: '16px' }} onClick={()=>setShowModal(true)} >
+                <Button htmlType="button" type="primary" size="large" style={{ marginLeft: '16px' }} onClick={() => setShowModal(true)} >
                     Оформить заказ
                 </Button>
             </div>
@@ -71,12 +76,9 @@ const BurgerConstructor = ({ data }) => {
     )
 }
 
+
 BurgerConstructor.propTypes = {
-    item: PropTypes.shape({
-        proteins: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-    })
-}.isRequired;
+    data: PropTypes.arrayOf(dataItemForPropTypes).isRequired
+}
 
 export default BurgerConstructor
