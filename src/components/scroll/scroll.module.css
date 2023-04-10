@@ -1,0 +1,13 @@
+.scroll::-webkit-scrollbar {
+    width: 8px; /* ширина нового скроллбара */
+}  
+
+.scroll::-webkit-scrollbar-track {
+    background: #2F2F37; /* цвет фона у дорожки */
+    /* border: 1px dashed #4C4CFF; */
+} 
+
+.scroll::-webkit-scrollbar-thumb {
+    background: #8585AD; /* цвет фона у дорожки */
+    border: 3px solid #8585AD; /* толщина, стиль и цвет рамки */
+}
