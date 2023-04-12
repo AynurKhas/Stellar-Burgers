@@ -18,10 +18,20 @@ class Api {
     }
 
     getData = () => {
-        return this.request(this._baseUrl, {
+        return this.request(`${this._baseUrl}/ingredients`, {
             headers: this._headers
         })
     }
+
+    postOrderToServer = (ingredients) => {
+        return this.request(`${this._baseUrl}/orders`, {
+          method: 'POST',
+          headers: this._headers,
+          body: JSON.stringify({
+            "ingredients": ingredients
+          })
+        })
+      }
 }
 
 export const api = new Api({

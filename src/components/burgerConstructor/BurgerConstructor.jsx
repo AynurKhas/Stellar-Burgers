@@ -1,52 +1,56 @@
-import { useMemo, useState } from "react";
-import { Button, ConstructorElement, CurrencyIcon, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useContext, useMemo, useState } from "react";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import sb from './BurgerConstructor.module.css'
 import s from "../scroll/scroll.module.css";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../modal/Modal";
 import { bun, dataItemForPropTypes } from "../utils/constants";
+import { DataBurger } from "../../services/productsContext";
+import Total from "../total/Total";
 
-
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = () => {
+    const [burger] = useContext(DataBurger);
     const [showModal, setShowModal] = useState(false);
 
     const handleCloseModalEsc = () => {
         setShowModal(false);
     }
 
-    const arrBun = useMemo(() => data.filter(item => (
-        item.type === bun)), [data]);
-
-    const arrNoBun = useMemo(() => data.filter(item => (
-        item.type !== bun)), [data]);
+    const bunInBurger = useMemo(() => burger.ingredients.find(item => item.type === bun), [burger.ingredients]);
 
 
-
-    const total = useMemo(
-        () => arrBun[0].price + arrNoBun.reduce((acc, p) => acc + p.price, 0), [arrBun, arrNoBun]
-    );
+    const arrNoBun = useMemo(() => burger.ingredients.filter(item => (
+        item.type !== bun)), [burger.ingredients]);
+    
+    const message = (
+        <div className={sb.massege}>
+            <p className="text text_type_main-medium">Добавьте ингредиенты, нажав правую кнопку мыши!</p>
+        </div>
+    )
 
     const modal = (
         <Modal setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
-            <OrderDetails setShowModal={setShowModal} product={data} />
+            <OrderDetails setShowModal={setShowModal} />
         </ Modal>
     );
 
     return (
         <section className={sb.burgerConstructor}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: 'min-content', marginTop: '100px' }}>
+            {(burger.ingredients.length === 0)
+            ? message
+            : <> <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: 'min-content', marginTop: '100px', width: '100%' }}>
                 <span className={sb.burgerConstructor__span}>
-                    <ConstructorElement
+                    {bunInBurger && <ConstructorElement
                         type="top"
                         isLocked={true}
-                        text={arrBun[0].name}
-                        price={arrBun[0].price}
-                        thumbnail={arrBun[0].image_mobile} />
+                        text={`${bunInBurger.name} (верх)`}
+                        price={bunInBurger.price}
+                        thumbnail={bunInBurger.image_mobile} />}
                 </span>
                 <ul className={`${sb.burgerConstructor__container} ${s.scroll}`}>
-                    {arrNoBun.map(item => (
-                        <li className={sb["burgerConstructor__container-items"]} key={item._id}>
+                    {arrNoBun && arrNoBun.map((item, index) => (
+                        <li className={sb["burgerConstructor__container-items"]} key={index}>
                             <DragIcon type="primary" />
                             <ConstructorElement
                                 text={item.name}
@@ -56,29 +60,23 @@ const BurgerConstructor = ({ data }) => {
                     ))}
                 </ul>
                 <span className={sb.burgerConstructor__span}>
-                    <ConstructorElement
+                    {bunInBurger && <ConstructorElement
                         type="bottom"
                         isLocked={true}
-                        text={arrBun[0].name}
-                        price={arrBun[0].price}
-                        thumbnail={arrBun[0].image_mobile} />
+                        text={`${bunInBurger.name} (вниз)`}
+                        price={bunInBurger.price}
+                        thumbnail={bunInBurger.image_mobile} />}
                 </span>
             </div>
-            <div className={`${sb.order} mt-10 pr-4`}>
-                <p className="text text_type_digits-medium" style={{ paddingRight: '9.5px' }}>{total}</p>
-                <CurrencyIcon type="primary" />
-                <Button htmlType="button" type="primary" size="large" style={{ marginLeft: '16px' }} onClick={() => setShowModal(true)} >
-                    Оформить заказ
-                </Button>
-            </div>
+            <Total setShowModal={setShowModal} />
+            </>}
             {showModal && modal}
         </section>
     )
 }
 
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(dataItemForPropTypes).isRequired
-}
+/* BurgerConstructor.propTypes = {
+    burger: PropTypes.arrayOf(dataItemForPropTypes)
+} */
 
 export default BurgerConstructor
