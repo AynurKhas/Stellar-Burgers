@@ -23,7 +23,7 @@ class Api {
         })
     }
 
-    postOrderToServer = (ingredients) => {
+    sendPostOrderToServer = (ingredients) => {
         return this.request(`${this._baseUrl}/orders`, {
           method: 'POST',
           headers: this._headers,

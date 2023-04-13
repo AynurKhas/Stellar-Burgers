@@ -5,7 +5,6 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../modal/Modal";
 import { bun, dataItemForPropTypes } from "../utils/constants";
 import { DataBurger } from "../../services/productsContext";
-// import PropTypes from "prop-types";
 
 const Specification = ({ item }) => {
     const [burger, setBurger] = useContext(DataBurger);
@@ -44,6 +43,8 @@ const Specification = ({ item }) => {
         </ Modal>
     );
 
+    const countСounter = burger.ingredients.filter(el => el._id === item._id).length;
+
     return (
         <li className={s.ingredients__items} style={{ overflow: 'hidden' }} onClick={() => setShowModal(true)} onContextMenu={handleRightMouseButton} >
             <article className={s.specification} >
@@ -57,8 +58,7 @@ const Specification = ({ item }) => {
                         <p className={`$["specification__container-item-name"] text text_type_main-default`}>{item.name}</p>
                     </li>
                 </ul>
-                <Counter count={1} size="default" extraClass="m-1" />
-                {/* {{state.count && <Counter count={1} size="default" extraClass="m-1" />}} */}
+                {(countСounter > 0) && <Counter count={countСounter} size="default" extraClass="m-1" />}                
             </article>
             {showModal && modal}
         </li>
@@ -67,7 +67,6 @@ const Specification = ({ item }) => {
 
 Specification.propTypes = {
     item: dataItemForPropTypes.isRequired,
-    // burger: PropTypes.arrayOf(dataItemForPropTypes)
 }
 
 export default Specification

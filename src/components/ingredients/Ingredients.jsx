@@ -2,7 +2,6 @@ import s from './Ingredients.module.css';
 import Specification from "../specification/specification";
 import PropTypes from "prop-types";
 import { getIngredientName } from '../utils/utilities';
-import { dataItemForPropTypes } from '../utils/constants';
 import { DataContext } from "../../services/productsContext";
 import { useContext } from 'react';
 
@@ -30,7 +29,6 @@ const Ingredients = ({ type }) => {
 
     Ingredients.propTypes = {
         type: PropTypes.string.isRequired,
-        // data: PropTypes.arrayOf(dataItemForPropTypes).isRequired
     };
 
     export default Ingredients

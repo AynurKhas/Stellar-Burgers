@@ -14,17 +14,18 @@ const OrderDetails = ({ setShowModal }) => {
         hasError: false
     });
 
+    const ingredientsIdArray = burger.ingredients.map(item => item._id);
 
     useEffect(() => {
         setState({ ...state, hasError: false, isLoading: true });
-        api.postOrderToServer(burger.ingredients.map(item => item._id))
+        api.sendPostOrderToServer(ingredientsIdArray)
             .then((res) => setState({ ...state, isLoading: false }, setBurger({ ...burger, orderNumber: res.order.number })))
             .catch(() => {
                 setState({ ...state, hasError: true, isLoading: false })
             })
     }, []);
 
-    const { data, isLoading, hasError } = state;
+    const { isLoading, hasError } = state;
     return (
         <div className={s.modal} onMouseDown={(e) => e.stopPropagation()}>
 

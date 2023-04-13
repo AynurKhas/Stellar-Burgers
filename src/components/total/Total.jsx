@@ -2,8 +2,8 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import sb from './total.module.css'
 import { useContext, useMemo, useReducer } from 'react';
 import { DataBurger } from "../../services/productsContext";
-import { bun, dataItemForPropTypes, main, sauce } from '../utils/constants';
-// import PropTypes from "prop-types";
+import { bun, main, sauce } from '../utils/constants';
+import PropTypes from "prop-types";
 
 const Total = ({ setShowModal }) => {
     const [burger] = useContext(DataBurger);
@@ -11,7 +11,7 @@ const Total = ({ setShowModal }) => {
     const initialState = { count: 0 };
     const reset = {
         type: 'reset',
-        payload: initialState
+        payload: { initialState }
     }
     const [state, dispatch] = useReducer(reducer, initialState, init);
 
@@ -31,7 +31,7 @@ const Total = ({ setShowModal }) => {
     }
 
     function init() {
-        return { count: 0 }
+        return initialState
     }
 
     useMemo(() => {
@@ -40,14 +40,6 @@ const Total = ({ setShowModal }) => {
             dispatch(item)
         })
     }, [burger.ingredients])
-
-
-    /* const total = useMemo(() => {
-        return (burger.ingredients.length !== 0 && burger.ingredients.find(item => item.type === bun))
-            ? (burger.ingredients.find(item => item.type === bun).price * 2) + burger.ingredients.filter(item => item.type !== bun).reduce((acc, p) => acc + p.price, 0)
-            : burger.ingredients.filter(item => item.type !== bun).reduce((acc, p) => acc + p.price, 0)
-    }, [burger.ingredients]); */
-
 
     return (
         <div className={`${sb.order} mt-10 pr-4`}>
@@ -60,8 +52,8 @@ const Total = ({ setShowModal }) => {
     )
 }
 
-/* Total.propTypes = {
-    burger: PropTypes.arrayOf(dataItemForPropTypes)
-} */
+Total.propTypes = {
+    setShowModal: PropTypes.func.isRequired
+}
 
 export default Total
