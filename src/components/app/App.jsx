@@ -16,8 +16,8 @@ const App = () => {
   const burger = useState({
     ingredients: [],
     orderNumber: ''
-});
-
+  });
+  
   React.useEffect(() => {
     setState({ ...state, hasError: false, isLoading: true });
     api.getData()
