@@ -1,3 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: min-content;
+    margin-top: 100px;
+    width: 100%;
+    /* style={{ display: 'flex', flexDirection: 'column', gap: '10px', 
+        height: 'min-content', marginTop: '100px', width: '100%' }} */
+}
+
 .burgerConstructor {  
     display: flex;
     align-items: center;

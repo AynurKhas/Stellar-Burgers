@@ -1,14 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from './Specification.module.css';
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import Modal from "../modal/Modal";
-import { bun, dataItemForPropTypes } from "../utils/constants";
+import { bun, dataItemForPropTypes } from "../../utils/constants";
 import { DataBurger } from "../../services/productsContext";
 
-const Specification = ({ item }) => {
+const Specification = ({ item, handleClick }) => {
     const [burger, setBurger] = useContext(DataBurger);
-    const [showModal, setShowModal] = useState(false);
     
     
     
@@ -37,16 +34,10 @@ const Specification = ({ item }) => {
         }
     }
 
-    const modal = (
-        <Modal setShowModal={setShowModal} onClosEsc={() => setShowModal(false)}>
-            <IngredientDetails product={item} setShowModal={setShowModal} />
-        </ Modal>
-    );
-
     const countСounter = burger.ingredients.filter(el => el._id === item._id).length;
 
     return (
-        <li className={s.ingredients__items} style={{ overflow: 'hidden' }} onClick={() => setShowModal(true)} onContextMenu={handleRightMouseButton} >
+        <li className={s.ingredients__items} onClick={() => handleClick(item)} onContextMenu={handleRightMouseButton} >
             <article className={s.specification} >
                 <img src={`${item.image}`} alt={`${item.name}`} className={s.specification__img} />
                 <ul className={s.specification__container}>
@@ -55,12 +46,11 @@ const Specification = ({ item }) => {
                         <CurrencyIcon type="primary" />
                     </li>
                     <li className={s["specification__container-item"]}>
-                        <p className={`$["specification__container-item-name"] text text_type_main-default`}>{item.name}</p>
+                        <p className={`${s["specification__container-item-name"]} text text_type_main-default`}>{item.name}</p>
                     </li>
                 </ul>
                 {(countСounter > 0) && <Counter count={countСounter} size="default" extraClass="m-1" />}                
             </article>
-            {showModal && modal}
         </li>
     )
 }

@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppHeader from '../appHeader/AppHeader';
 import Main from '../main/main';
-import './App.css';
-import { api } from '../utils/Api';
-
-
+import s from './App.module.css';
+import { api } from '../../utils/Api';
+import { DataBurger, DataContext } from "../../services/productsContext";
 
 const App = () => {
   const [state, setState] = React.useState({
@@ -12,6 +11,12 @@ const App = () => {
     hasError: false,
     data: []
   });
+
+  
+  const burger = useState({
+    ingredients: [],
+    orderNumber: ''
+});
 
   React.useEffect(() => {
     setState({ ...state, hasError: false, isLoading: true });
@@ -25,7 +30,7 @@ const App = () => {
   const { data, isLoading, hasError } = state;
 
   return (
-    <div className="App">
+    <div className={s.app}>
 
       {isLoading && 'Загрузка...'}
       {hasError && 'Произошла ошибка'}
@@ -34,7 +39,11 @@ const App = () => {
         data.length &&
         <>
           <AppHeader />
-          <Main data={data} />
+          <DataContext.Provider value={data}>
+            <DataBurger.Provider value={burger} >
+              <Main />
+            </DataBurger.Provider>
+          </DataContext.Provider>
         </>
       }
     </div>

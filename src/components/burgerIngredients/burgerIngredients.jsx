@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import  ChoiceIngredients  from "../choiceIngredients/ChoiceIngredients";
 import Ingredients from "../ingredients/Ingredients";
 import sb from './burgerIngredients.module.css';
 import s from "../scroll/scroll.module.css";
+import Modal from "../modal/Modal";
+import IngredientDetails from "../ingredientDetails/IngredientDetails";
+import { useModal } from "../../hooks/useModal";
 
 
 const BurgerIngredients = () => {
-    const [show, setShow] = React.useState();    
+    const [show, setShow] = React.useState(); 
+
+    const { isModalOpen, openModal, closeModal } = useModal();
+    const [item, setItem] = useState({})    
+    
+    const handleClick = (ingredient) => {
+        openModal();
+        setItem(ingredient)
+    } 
+
+    const modal = (
+        <Modal closeModal={closeModal} onClosEsc={closeModal}  title={'Детали ингридиента'} >
+            <IngredientDetails product={item} />
+        </ Modal>
+    );
 
     return (
         <section className={sb.menu}>
@@ -14,20 +31,21 @@ const BurgerIngredients = () => {
             <ChoiceIngredients choice={(item) => setShow(item)} />
             { !show && <ul className={`${sb.menu__container} ${s.scroll}`}>
                 <li className={sb["menu__container-items"]}>
-                    <Ingredients type={"bun"} />
+                    <Ingredients type={"bun"} handleClick={handleClick} />
                 </li>
                 <li className={sb["menu__container-items"]}>
-                    <Ingredients type={"sauce"} />
+                    <Ingredients type={"sauce"} handleClick={handleClick} />
                 </li>
                 <li className={sb["menu__container-items"]}>
-                    <Ingredients type={"main"} />
+                    <Ingredients type={"main"} handleClick={handleClick} />
                 </li>
             </ul>}
             { show && <ul className={`${sb.menu__container} ${s.scroll}`}>
                 <li className={sb["menu__container-items"]}>
-                    <Ingredients type={`${show}`} />
+                    <Ingredients type={`${show}`} handleClick={handleClick} />
                 </li>
             </ul>}
+            {isModalOpen && modal}
         </section>
     )
 }

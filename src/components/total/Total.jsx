@@ -2,10 +2,10 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import sb from './total.module.css'
 import { useContext, useMemo, useReducer } from 'react';
 import { DataBurger } from "../../services/productsContext";
-import { bun, main, sauce } from '../utils/constants';
+import { bun, main, sauce } from '../../utils/constants';
 import PropTypes from "prop-types";
 
-const Total = ({ setShowModal }) => {
+const Total = ({ openModal }) => {
     const [burger] = useContext(DataBurger);
 
     const initialState = { count: 0 };
@@ -43,9 +43,9 @@ const Total = ({ setShowModal }) => {
 
     return (
         <div className={`${sb.order} mt-10 pr-4`}>
-            <p className="text text_type_digits-medium" style={{ paddingRight: '9.5px' }}>{state.count}</p>
+            <p className={`${sb.order__totalPrice} text text_type_digits-medium`} >{state.count}</p>
             <CurrencyIcon type="primary" />
-            <Button htmlType="button" type="primary" size="large" style={{ marginLeft: '16px' }} onClick={() => setShowModal(true)} >
+            <Button htmlType="button" type="primary" size="large" /* className={sb.order__button} */ style={{ marginLeft: '16px' }} onClick={openModal} >
                 Оформить заказ
             </Button>
         </div>
@@ -53,7 +53,7 @@ const Total = ({ setShowModal }) => {
 }
 
 Total.propTypes = {
-    setShowModal: PropTypes.func.isRequired
+    openModal: PropTypes.func.isRequired
 }
 
 export default Total

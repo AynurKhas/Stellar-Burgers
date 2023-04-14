@@ -3,19 +3,16 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import sb from './BurgerConstructor.module.css'
 import s from "../scroll/scroll.module.css";
 // import PropTypes from "prop-types";
-import OrderDetails from "../OrderDetails/OrderDetails";
+import OrderDetails from "../orderDetails/OrderDetails";
 import Modal from "../modal/Modal";
-import { bun } from "../utils/constants";
+import { bun } from "../../utils/constants";
 import { DataBurger } from "../../services/productsContext";
 import Total from "../total/Total";
+import { useModal } from "../../hooks/useModal";
 
 const BurgerConstructor = () => {
     const [burger] = useContext(DataBurger);
-    const [showModal, setShowModal] = useState(false);
-
-    const handleCloseModalEsc = () => {
-        setShowModal(false);
-    }
+    const { isModalOpen, openModal, closeModal } = useModal();
 
     const bunInBurger = useMemo(() => burger.ingredients.find(item => item.type === bun), [burger.ingredients]);
 
@@ -30,8 +27,8 @@ const BurgerConstructor = () => {
     )
 
     const modal = (
-        <Modal setShowModal={setShowModal} onClosEsc={handleCloseModalEsc}>
-            <OrderDetails setShowModal={setShowModal} />
+        <Modal closeModal={closeModal} onClosEsc={closeModal}>
+            <OrderDetails />
         </ Modal>
     );
 
@@ -39,7 +36,7 @@ const BurgerConstructor = () => {
         <section className={sb.burgerConstructor}>
             {(burger.ingredients.length === 0)
                 ? message
-                : <> <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', height: 'min-content', marginTop: '100px', width: '100%' }}>
+                : <> <div className={sb.container} >
                     <span className={sb.burgerConstructor__span}>
                         {bunInBurger && <ConstructorElement
                             type="top"
@@ -68,9 +65,9 @@ const BurgerConstructor = () => {
                             thumbnail={bunInBurger.image_mobile} />}
                     </span>
                 </div>
-                    <Total setShowModal={setShowModal} />
+                    <Total openModal={openModal} />
                 </>}
-            {showModal && modal}
+            {isModalOpen && modal}
         </section>
     )
 }

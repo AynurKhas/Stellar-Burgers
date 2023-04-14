@@ -1,5 +1,6 @@
 .menu {
     max-width: 600px;
+    /* overflow: hidden; */
 }
 
 .menu__title {

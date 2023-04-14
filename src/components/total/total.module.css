@@ -3,3 +3,11 @@
     align-items: center;
     justify-content: flex-end;
 }
+
+.order__totalPrice{
+    padding-right: 9.5px;
+}
+
+/* .order__button {
+    margin-left: 16px;
+} */

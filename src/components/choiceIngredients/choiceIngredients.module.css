@@ -1,0 +1,4 @@
+.containerChoice {
+    display: flex;
+    flex-direction: row;
+}

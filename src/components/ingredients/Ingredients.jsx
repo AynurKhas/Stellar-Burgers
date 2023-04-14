@@ -1,11 +1,11 @@
 import s from './Ingredients.module.css';
 import Specification from "../specification/specification";
 import PropTypes from "prop-types";
-import { getIngredientName } from '../utils/utilities';
+import { getIngredientName } from '../../utils/utilities';
 import { DataContext } from "../../services/productsContext";
 import { useContext } from 'react';
 
-const Ingredients = ({ type }) => {
+const Ingredients = ({ type, handleClick }) => {
 
     const data = useContext(DataContext);
     const ingredientName = getIngredientName(type);
@@ -19,7 +19,7 @@ const Ingredients = ({ type }) => {
             <h2 className={`${s.menu__subtitle} text text_type_main-medium`}>{ingredientName}</h2>
             <ul className={s.ingredients}>
                 {arr.map(item => (
-                    <Specification item={item} key={item._id} />
+                    <Specification item={item} key={item._id} handleClick={handleClick} />
                 )
                 )}
             </ul>

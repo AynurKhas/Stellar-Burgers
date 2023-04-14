@@ -1,4 +1,5 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import s from './choiceIngredients.module.css';
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -12,7 +13,7 @@ const ChoiceIngredients = ({ choice }) => {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className={s.containerChoice} >
             <Tab value="bun" active={current === 'bun'} onClick={heandleChoice}>
                 Булки
             </Tab>
