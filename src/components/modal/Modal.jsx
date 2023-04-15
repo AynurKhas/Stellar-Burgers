@@ -8,12 +8,12 @@ import s from './modal.module.css'
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ onClosEsc, children, closeModal, title }) => {
+const Modal = ({ children, closeModal, title }) => {
 
     const keydownHandler = ({ key }) => {
         switch (key) {
             case 'Escape':
-                onClosEsc();
+                closeModal();
                 break;
             default:
         }
