@@ -3,7 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/app/App';
 import reportWebVitals from './reportWebVitals';
+/* import { compose, createStore, applyMiddleware  } from 'redux';
+const enhancer = composeEnhancers();
+const composeEnhancers =
+typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+: compose; 
 
+const store = createStore(rootReducer, enhancer); 
+*/
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
