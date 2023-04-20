@@ -29,7 +29,6 @@ const Modal = ({ children, closeModal, title }) => {
         <>
             <ModalOverlay closeModal={closeModal}>
                 <div className={s.modal} onMouseDown={(e) => e.stopPropagation()}>
-
                     <article className={title ? s.modal__articleTop40 : s.modal__articleTop60} >
                         <div className={s.modal__headerContainer}>
                             <h2 className={`${s.modal__title} text text_type_main-large`}>{title}</h2>

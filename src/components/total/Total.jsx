@@ -1,12 +1,12 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import sb from './total.module.css'
-import { useContext, useMemo, useReducer } from 'react';
-import { DataBurger } from "../../services/productsContext";
+import { useMemo, useReducer } from 'react';
 import { bun, main, sauce } from '../../utils/constants';
 import PropTypes from "prop-types";
+import { useSelector } from 'react-redux'
 
 const Total = ({ openModal }) => {
-    const [burger] = useContext(DataBurger);
+    const { burger } = useSelector(store => store.burger)
 
     const initialState = { count: 0 };
     const reset = {

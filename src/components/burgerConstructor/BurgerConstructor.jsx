@@ -9,9 +9,10 @@ import { bun } from "../../utils/constants";
 import { DataBurger } from "../../services/productsContext";
 import Total from "../total/Total";
 import { useModal } from "../../hooks/useModal";
+import { useSelector } from 'react-redux'
 
 const BurgerConstructor = () => {
-    const [burger] = useContext(DataBurger);
+    const { burger } = useSelector(store => store.burger)
     const { isModalOpen, openModal, closeModal } = useModal();
 
     const bunInBurger = useMemo(() => burger.ingredients.find(item => item.type === bun), [burger.ingredients]);

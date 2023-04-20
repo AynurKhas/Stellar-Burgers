@@ -4,10 +4,12 @@ import PropTypes from "prop-types";
 import { getIngredientName } from '../../utils/utilities';
 import { DataContext } from "../../services/productsContext";
 import { useContext } from 'react';
+import { useSelector } from 'react-redux'
 
 const Ingredients = ({ type, handleClick }) => {
 
-    const data = useContext(DataContext);
+    // const data = useContext(DataContext);
+    const { data } = useSelector(store => store.burger);
     const ingredientName = getIngredientName(type);
     
     const arr = data.filter(item =>

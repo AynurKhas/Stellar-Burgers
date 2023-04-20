@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import  ChoiceIngredients  from "../choiceIngredients/ChoiceIngredients";
 import Ingredients from "../ingredients/Ingredients";
 import sb from './burgerIngredients.module.css';
@@ -6,22 +6,28 @@ import s from "../scroll/scroll.module.css";
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredientDetails/IngredientDetails";
 import { useModal } from "../../hooks/useModal";
+import { useDispatch } from 'react-redux'
+import { TAKE_CURRENT_INGREDIENT } from "../../services/actions/burger";
 
 
 const BurgerIngredients = () => {
+    const dispatch = useDispatch();
+    
     const [show, setShow] = React.useState(); 
 
     const { isModalOpen, openModal, closeModal } = useModal();
-    const [item, setItem] = useState({})    
     
     const handleClick = (ingredient) => {
         openModal();
-        setItem(ingredient)
+        dispatch({
+            type: TAKE_CURRENT_INGREDIENT,
+            payload: ingredient
+        })
     } 
 
     const modal = (
         <Modal closeModal={closeModal} onClosEsc={closeModal}  title={'Детали ингридиента'} >
-            <IngredientDetails product={item} />
+            <IngredientDetails />
         </ Modal>
     );
 
