@@ -1,12 +1,10 @@
-import { useContext, useMemo, useState } from "react";
+import React,{  useMemo } from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import sb from './BurgerConstructor.module.css'
 import s from "../scroll/scroll.module.css";
-// import PropTypes from "prop-types";
 import OrderDetails from "../orderDetails/OrderDetails";
 import Modal from "../modal/Modal";
 import { bun } from "../../utils/constants";
-import { DataBurger } from "../../services/productsContext";
 import Total from "../total/Total";
 import { useModal } from "../../hooks/useModal";
 import { useSelector } from 'react-redux'
@@ -14,9 +12,9 @@ import { useSelector } from 'react-redux'
 const BurgerConstructor = () => {
     const { burger } = useSelector(store => store.burger)
     const { isModalOpen, openModal, closeModal } = useModal();
+    console.log("rendered");
 
     const bunInBurger = useMemo(() => burger.ingredients.find(item => item.type === bun), [burger.ingredients]);
-
 
     const arrNoBun = useMemo(() => burger.ingredients.filter(item => (
         item.type !== bun)), [burger.ingredients]);
@@ -26,6 +24,7 @@ const BurgerConstructor = () => {
             <p className="text text_type_main-medium">Добавьте ингредиенты, нажав правую кнопку мыши!</p>
         </div>
     )
+    console.log(isModalOpen);
 
     const modal = (
         <Modal closeModal={closeModal} onClosEsc={closeModal}>
@@ -73,4 +72,4 @@ const BurgerConstructor = () => {
     )
 }
 
-export default BurgerConstructor
+export default React.memo(BurgerConstructor)

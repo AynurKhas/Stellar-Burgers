@@ -1,18 +1,12 @@
-import { useContext } from "react";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from './Specification.module.css';
 import { bun, dataItemForPropTypes } from "../../utils/constants";
-import { DataBurger } from "../../services/productsContext";
 import { useSelector, useDispatch } from 'react-redux'
 import { ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR } from "../../services/actions/burger";
 
 const Specification = ({ item, handleClick }) => {
     const { burger } = useSelector(store => store.burger)
     const dispatch = useDispatch();
-
-    // const [burger, setBurger] = useContext(DataBurger);
-
-
 
     const findBunInBurger = (arr, bun) => {
         return arr.find(item => item.type === bun)
@@ -24,28 +18,16 @@ const Specification = ({ item, handleClick }) => {
 
     const handleRightMouseButton = () => {
         if (burger.ingredients.length === 0) {
-            /* setBurger({
-                ...burger,
-                ingredients: [item]
-            }); */
             dispatch({
                 type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
                 payload: [item]
             })
         } else if (findBunInBurger(burger.ingredients, bun) && item.type === bun) {
-            /* setBurger({
-                ...burger,
-                ingredients: [...burger.ingredients.slice(0, findInexBun(burger.ingredients, bun)), item, ...burger.ingredients.slice(findInexBun(burger.ingredients, bun) + 1)]
-            }); */
             dispatch({
                 type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
                 payload: [...burger.ingredients.slice(0, findInexBun(burger.ingredients, bun)), item, ...burger.ingredients.slice(findInexBun(burger.ingredients, bun) + 1)]
             })
         } else {
-            /* setBurger({
-                ...burger,
-                ingredients: [...burger.ingredients, item]
-            }); */
             dispatch({
                 type: ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR,
                 payload: [...burger.ingredients, item]

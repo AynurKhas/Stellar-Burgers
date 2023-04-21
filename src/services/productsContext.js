@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 
 export const DataContext = React.createContext();
-export const DataBurger = React.createContext();
+export const DataBurger = React.createContext(); */

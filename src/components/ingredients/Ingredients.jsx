@@ -8,10 +8,9 @@ import { useSelector } from 'react-redux'
 
 const Ingredients = ({ type, handleClick }) => {
 
-    // const data = useContext(DataContext);
     const { data } = useSelector(store => store.burger);
     const ingredientName = getIngredientName(type);
-    
+
     const arr = data.filter(item =>
         item.type === `${type}`
     )
@@ -27,10 +26,10 @@ const Ingredients = ({ type, handleClick }) => {
             </ul>
         </>
     )
-    }
+}
 
-    Ingredients.propTypes = {
-        type: PropTypes.string.isRequired,
-    };
+Ingredients.propTypes = {
+    type: PropTypes.string.isRequired,
+};
 
-    export default Ingredients
+export default Ingredients
