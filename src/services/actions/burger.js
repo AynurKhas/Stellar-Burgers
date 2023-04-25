@@ -1,4 +1,4 @@
-import { api } from "../../utils/Api";
+import { getData, sendPostOrderToServer } from "../../utils/burger-api.js";
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -16,17 +16,22 @@ export function getIngredients() {
         dispatch({
             type: GET_INGREDIENTS_REQUEST
         });
-        api.getData().then(res => {
-            dispatch({
-                type: GET_INGREDIENTS_SUCCESS,
-                items: res.data
-            });
-        }).catch(() => {
-            dispatch({
-                type: GET_REQUEST_FAILED
-            });
-            alert("Во время загрузки произошла ошибка");
-        })
+        getData()
+            .then(res => {
+                res.success
+                    ? dispatch({
+                        type: GET_INGREDIENTS_SUCCESS,
+                        items: res.data
+                    })
+                    : dispatch({
+                        type: GET_REQUEST_FAILED
+                    });
+            }).catch(() => {
+                dispatch({
+                    type: GET_REQUEST_FAILED
+                });
+                alert("Во время загрузки произошла ошибка");
+            })
     }
 }
 
@@ -35,16 +40,21 @@ export function getOrderNumber(array) {
         dispatch({
             type: GET_ORDERNUMBER_REQUEST
         });
-        api.sendPostOrderToServer(array).then(res => {
-            dispatch({
-                type: GET_ORDERNUMBER_SUCCESS,
-                payload: res.order.number
-            });
-        }).catch(() => {
-            dispatch({
-                type: GET_REQUEST_FAILED
-            });
-            alert("Во время загрузки произошла ошибка");
-        })
+        sendPostOrderToServer(array)
+            .then(res => {
+                res.success
+                    ? dispatch({
+                        type: GET_ORDERNUMBER_SUCCESS,
+                        payload: res.order.number
+                    })
+                    : dispatch({
+                        type: GET_REQUEST_FAILED
+                    });
+            }).catch(() => {
+                dispatch({
+                    type: GET_REQUEST_FAILED
+                });
+                alert("Во время загрузки произошла ошибка");
+            })
     }
 }

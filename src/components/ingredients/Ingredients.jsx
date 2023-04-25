@@ -2,8 +2,6 @@ import s from './Ingredients.module.css';
 import Specification from "../specification/specification";
 import PropTypes from "prop-types";
 import { getIngredientName } from '../../utils/utilities';
-import { DataContext } from "../../services/productsContext";
-import { useContext } from 'react';
 import { useSelector } from 'react-redux'
 
 const Ingredients = ({ type, handleClick }) => {

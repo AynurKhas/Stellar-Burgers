@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 const BurgerConstructor = () => {
     const { burger } = useSelector(store => store.burger)
     const { isModalOpen, openModal, closeModal } = useModal();
-    console.log("rendered");
+    console.log(burger);
 
     const bunInBurger = useMemo(() => burger.ingredients.find(item => item.type === bun), [burger.ingredients]);
 
@@ -24,7 +24,6 @@ const BurgerConstructor = () => {
             <p className="text text_type_main-medium">Добавьте ингредиенты, нажав правую кнопку мыши!</p>
         </div>
     )
-    console.log(isModalOpen);
 
     const modal = (
         <Modal closeModal={closeModal} onClosEsc={closeModal}>
