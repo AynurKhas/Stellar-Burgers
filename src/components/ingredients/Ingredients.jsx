@@ -17,8 +17,8 @@ const Ingredients = ({ type, handleClick }) => {
         <>
             <h2 className={`${s.menu__subtitle} text text_type_main-medium`}>{ingredientName}</h2>
             <ul className={s.ingredients}>
-                {arr.map(item => (
-                    <Specification item={item} key={item._id} handleClick={handleClick} />
+                {arr.map((item, index) => (
+                    <Specification item={item} key={index} handleClick={handleClick} id={item._id} />
                 )
                 )}
             </ul>

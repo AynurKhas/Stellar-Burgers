@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { useSelector } from 'react-redux'
 
 const Total = ({ openModal }) => {
-    const { burger } = useSelector(store => store.burger)
+    const { burger } = useSelector(store => store.burgerConstructor)
 
     const initialState = { count: 0 };
     const reset = {

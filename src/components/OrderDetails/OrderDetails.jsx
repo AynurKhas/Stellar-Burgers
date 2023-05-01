@@ -1,20 +1,20 @@
 import s from '../modal/modal.module.css'
 import done from '../../images/graphics.svg'
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { getOrderNumber } from '../../services/actions/burger';
 
 const OrderDetails = () => {
-    const { burger, isLoading, hasError, order } = useSelector(store => store.burger);
+    const { burger, isLoading, hasError, order } = useSelector(store => store.burgerConstructor);
     const ingredientsIdArray = burger.ingredients.map(item => item._id);
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         dispatch(getOrderNumber(ingredientsIdArray));
     }, []);
-    
+
     return (
-        <> 
+        <>
             {isLoading && 'Загрузка...'}
             {hasError && 'Произошла ошибка'}
             {!isLoading &&
