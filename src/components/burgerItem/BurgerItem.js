@@ -3,7 +3,8 @@ import sb from "../burgerConstructor/BurgerConstructor.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_DELETE_INGREDIENT, GET_MOVE_INGREDIENT } from "../../services/actions/burgerConstructor";
-import { bun } from "../../utils/constants";
+import { bun, dataItemForPropTypes } from "../../utils/constants";
+import PropTypes from "prop-types";
 
 
 export const BurgerItem = ({ item, index }) => {
@@ -30,14 +31,14 @@ export const BurgerItem = ({ item, index }) => {
     const [, dropIngredient] = useDrop({
         accept: 'noBunIngredient',
         drop(itemId) {
-            const insgredientBun = burger.ingredients.find(el => el.type === bun);
-            const prevItem = burger.ingredients.find(el => el.index === itemId.id);
-            const ingredientsArray = burger.ingredients.filter(el => el.index !== itemId.id);
-            const ingredientsArraynoBun = ingredientsArray.filter(el => el.type !== bun);
-            ingredientsArraynoBun.splice(index, 0, prevItem);
+            const ingredientBun = burger.ingredients.find(el => el.type === bun);
+            const dragItem = burger.ingredients.find(el => el.index === itemId.id);
+            const ingredientsArrayNoDragItem = burger.ingredients.filter(el => el.index !== itemId.id);
+            const ingredientsArraynoBun = ingredientsArrayNoDragItem.filter(el => el.type !== bun);
+            ingredientsArraynoBun.splice(index, 0, dragItem);
             dispatch({
                 type: GET_MOVE_INGREDIENT,
-                payload: burger.ingredients.find(el => el.type === bun) ? [ ...ingredientsArraynoBun, insgredientBun] : [ ...ingredientsArraynoBun]
+                payload: burger.ingredients.find(el => el.type === bun) ? [ ...ingredientsArraynoBun, ingredientBun] : [ ...ingredientsArraynoBun]
             })
         },
     })
@@ -55,4 +56,9 @@ export const BurgerItem = ({ item, index }) => {
             />
         </li>
     )
+}
+
+BurgerItem.propTypes = {
+    item: dataItemForPropTypes.isRequired,
+    index: PropTypes.number.isRequired
 }

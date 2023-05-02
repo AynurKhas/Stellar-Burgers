@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useDispatch } from 'react-redux'
-import { DELETE_DATA_ON_CLOSE } from "../services/actions/burger";
+import { DELETE_DATA_ON_CLOSE } from "../services/actions/dataIngredients";
 
 
 export const useModal = () => {

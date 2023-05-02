@@ -6,7 +6,7 @@ import s from "../scroll/scroll.module.css";
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredientDetails/IngredientDetails";
 import { useModal } from "../../hooks/useModal";
-import { TAKE_CURRENT_INGREDIENT, getIngredients } from "../../services/actions/burger";
+import { TAKE_CURRENT_INGREDIENT, getIngredients } from "../../services/actions/dataIngredients";
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from "react-intersection-observer";
 import { bun, main, sauce } from "../../utils/constants";

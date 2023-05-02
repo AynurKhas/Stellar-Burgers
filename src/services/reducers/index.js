@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { burgerReducer } from './burger';
+import { burgerReducer } from './dataIngredients';
 import { burgerConstructorReducer } from './burgerConstructor';
 
 export const rootReducer = combineReducers({

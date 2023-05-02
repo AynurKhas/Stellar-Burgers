@@ -2,7 +2,7 @@ import s from '../modal/modal.module.css'
 import done from '../../images/graphics.svg'
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { getOrderNumber } from '../../services/actions/burger';
+import { getOrderNumber } from '../../services/actions/dataIngredients';
 
 const OrderDetails = () => {
     const { burger, isLoading, hasError, order } = useSelector(store => store.burgerConstructor);

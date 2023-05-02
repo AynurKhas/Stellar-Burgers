@@ -4,7 +4,7 @@ import {
     GET_REQUEST_FAILED,
     TAKE_CURRENT_INGREDIENT,
     DELETE_DATA_ON_CLOSE,
-} from '../actions/burger';
+} from '../actions/dataIngredients';
 
 const initialState = {
     data: [],
