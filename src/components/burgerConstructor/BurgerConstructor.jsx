@@ -8,7 +8,7 @@ import { bun } from "../../utils/constants";
 import Total from "../total/Total";
 import { useModal } from "../../hooks/useModal";
 import { useDispatch, useSelector } from 'react-redux'
-import { useDrop, useDrag } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { ADD_INGREDIENT_TO_BURGER_CONSTRUCTOR } from "../../services/actions/burgerConstructor";
 import { BurgerItem } from "../burgerItem/BurgerItem";
 
@@ -17,6 +17,8 @@ const BurgerConstructor = () => {
     const { burger } = useSelector(store => store.burgerConstructor)
     const { isModalOpen, openModal, closeModal } = useModal();
     const dispatch = useDispatch();
+
+    const burgerArrayNoEmpty = burger.ingredients.length !== 0;
 
     const [, drop] = useDrop({
         accept: 'ingredient',
@@ -44,21 +46,6 @@ const BurgerConstructor = () => {
             }
         },
     })
-
-/*     const [{ isDrag }, drag] = useDrag({
-        type: "noBunIngredient",
-        item: { id },
-        collect: monitor => ({
-            isDrag: monitor.isDragging()
-        })
-    }); */
-/* 
-    const [, dropIngredient] = useDrop({
-        accept: 'noBunIngredient',
-        drop(itemId) {
-            console.log(itemId);
-        },
-    }) */
 
     const ingredientArr = (itemId) => data.filter(item => (
         item._id === itemId.id));
@@ -91,30 +78,31 @@ const BurgerConstructor = () => {
 
     return (
         <section className={sb.burgerConstructor}>
-            <> <div ref={drop} className={sb.container} >
-                <span className={sb.burgerConstructor__span}>
-                    {bunInBurger && <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text={`${bunInBurger.name} (верх)`}
-                        price={bunInBurger.price}
-                        thumbnail={bunInBurger.image_mobile} />}
-                </span>
-                <ul className={`${sb.burgerConstructor__container} ${s.scroll}`}>
-                    {arrNoBun && arrNoBun.map((item, index) => (
-                        <BurgerItem item={item} key={item.index} index={index}  />
-                    ))}
-                </ul>
-                <span className={sb.burgerConstructor__span}>
-                    {bunInBurger && <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text={`${bunInBurger.name} (вниз)`}
-                        price={bunInBurger.price}
-                        thumbnail={bunInBurger.image_mobile} />}
-                </span>
-            </div>
-                { burger.ingredients.length !== 0 && <Total openModal={openModal} />}
+            <>
+                <div ref={drop} className={sb.container} >
+                    <span className={sb.burgerConstructor__span}>
+                        {bunInBurger && <ConstructorElement
+                            type="top"
+                            isLocked={true}
+                            text={`${bunInBurger.name} (верх)`}
+                            price={bunInBurger.price}
+                            thumbnail={bunInBurger.image_mobile} />}
+                    </span>
+                    <ul className={`${sb.burgerConstructor__container} ${s.scroll}`} >
+                        {arrNoBun && arrNoBun.map((item, index) => (
+                            <BurgerItem item={item} key={item.index} index={index} />
+                        ))}
+                    </ul>
+                    <span className={sb.burgerConstructor__span}>
+                        {bunInBurger && <ConstructorElement
+                            type="bottom"
+                            isLocked={true}
+                            text={`${bunInBurger.name} (вниз)`}
+                            price={bunInBurger.price}
+                            thumbnail={bunInBurger.image_mobile} />}
+                    </span>
+                </div>
+                {burgerArrayNoEmpty && <Total openModal={openModal} />}
             </>
             {isModalOpen && modal}
         </section>
