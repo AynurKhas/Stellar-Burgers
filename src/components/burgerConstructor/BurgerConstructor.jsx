@@ -68,11 +68,11 @@ const BurgerConstructor = () => {
     const arrNoBun = useMemo(() => burger.ingredients.filter(item => (
         item.type !== bun)), [burger.ingredients]);
 
-    /* const message = (
-        <div className={sb.massege}>
-            <p className="text text_type_main-medium">Добавьте ингредиенты!</p>
-        </div>
-    ) */
+    // const message = (
+        // <div className={sb.massege}>
+        //     <p className="text text_type_main-medium">Добавьте ингредиенты!</p>
+        // </div>
+    // )
 
     const modal = (
         <Modal closeModal={closeModal} onClosEsc={closeModal}>

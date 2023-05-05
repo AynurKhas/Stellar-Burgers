@@ -27,9 +27,12 @@ export const BurgerItem = ({ item, index }) => {
             isDrag: monitor.isDragging()
         })
     });
-    
-    const [, dropIngredient] = useDrop({
+
+    const [{isHover}, dropIngredient] = useDrop({
         accept: 'noBunIngredient',
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        }),
         drop(itemId) {
             const ingredientBun = burger.ingredients.find(el => el.type === bun);
             const dragItem = burger.ingredients.find(el => el.index === itemId.id);
@@ -38,22 +41,24 @@ export const BurgerItem = ({ item, index }) => {
             ingredientsArraynoBun.splice(index, 0, dragItem);
             dispatch({
                 type: GET_MOVE_INGREDIENT,
-                payload: burger.ingredients.find(el => el.type === bun) ? [ ...ingredientsArraynoBun, ingredientBun] : [ ...ingredientsArraynoBun]
+                payload: burger.ingredients.find(el => el.type === bun) ? [...ingredientsArraynoBun, ingredientBun] : [...ingredientsArraynoBun]
             })
         },
     })
 
-    return (
+    return (        
         <li ref={dropIngredient} className={sb["burgerConstructor__container-items"]} >
-            <span ref={drag} id={item.index}>
-                <DragIcon type="primary" />
-            </span>
-            <ConstructorElement
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image_mobile}
-                handleClose={(e) =>  handleDeleteIngredient( e, id)}
-            />
+            {!isDrag && <div ref={drag} className={sb["burgerConstructor__item"]}>
+                <span id={item.index}>
+                    <DragIcon type="primary" />
+                </span>
+                <ConstructorElement
+                    text={item.name}
+                    price={item.price}
+                    thumbnail={item.image_mobile}
+                    handleClose={(e) => handleDeleteIngredient(e, id)}
+                />
+            </div>}
         </li>
     )
 }
