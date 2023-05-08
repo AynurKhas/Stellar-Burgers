@@ -7,7 +7,6 @@ import { bun, dataItemForPropTypes } from "../../utils/constants";
 import PropTypes from "prop-types";
 import { useRef } from "react";
 
-
 export const BurgerItem = ({ item, index, moveCard }) => {
     const ref = useRef(null);
     const { burger } = useSelector(store => store.burgerConstructor)
