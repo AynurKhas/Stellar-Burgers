@@ -4,14 +4,13 @@ import {
     GET_ORDERNUMBER_REQUEST,
     GET_ORDERNUMBER_SUCCESS,
     GET_MOVE_INGREDIENT,
+    GET_MOVE_INGREDIENT_CURRENT_MOMENT,
     GET_DELETE_INGREDIENT
 } from '../actions/burgerConstructor';
 
 const initialState = {
     burger: {
         ingredients: [],
-        key: 0,
-        bun: -1
     },
     order: {
         orderNumber: ''
@@ -43,7 +42,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 burger: {
                     ...state.burger,
                     ingredients: [],
-                    key: 0
+                    // key: 0
                 },
                 order: {
                     ...state.order,
@@ -57,11 +56,19 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 burger: {
                     ...state.burger,
                     ingredients: action.payload,
-                    key: state.burger.key + action.index
                 }
             }
         }
         case GET_MOVE_INGREDIENT: {
+            return {
+                ...state,
+                burger: {
+                    ...state.burger,
+                    ingredients: action.payload,
+                }
+            }
+        }
+        case GET_MOVE_INGREDIENT_CURRENT_MOMENT: {
             return {
                 ...state,
                 burger: {
@@ -75,7 +82,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
                 ...state,
                 burger: {
                     ...state.burger,
-                    ingredients: state.burger.ingredients.filter(el => el.index !== action.payload)
+                    ingredients: state.burger.ingredients.filter(el => el.uuid !== action.payload)
                 }
             }
         }
