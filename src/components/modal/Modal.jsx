@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import ModalOverlay from '../ModalOverlay/ModalOverlay';
+import ModalOverlay from '../modalOverlay/ModalOverlay';
 import PropTypes from "prop-types";
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import s from './modal.module.css'
 
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ onClosEsc, children, setShowModal }) => {
+const Modal = ({ children, closeModal, title }) => {
 
     const keydownHandler = ({ key }) => {
         switch (key) {
             case 'Escape':
-                onClosEsc();
+                closeModal();
                 break;
             default:
         }
@@ -25,8 +27,16 @@ const Modal = ({ onClosEsc, children, setShowModal }) => {
 
     return createPortal(
         <>
-            <ModalOverlay setShowModal={setShowModal}>
-                {children }
+            <ModalOverlay closeModal={closeModal}>
+                <div className={s.modal} onMouseDown={(e) => e.stopPropagation()}>
+                    <article className={title ? s.modal__articleTop40 : s.modal__articleTop60} >
+                        <div className={s.modal__headerContainer}>
+                            <h2 className={`${s.modal__title} text text_type_main-large`}>{title}</h2>
+                            <span onClickCapture={closeModal}><CloseIcon type="primary" /></span>
+                        </div>
+                        {children}
+                    </article>
+                </div>
             </ModalOverlay>
         </>
         , modalRoot
@@ -34,9 +44,10 @@ const Modal = ({ onClosEsc, children, setShowModal }) => {
 }
 
 Modal.propTypes = {
-    setShowModal: PropTypes.func,
+    closeModal: PropTypes.func,
     onClosEsc: PropTypes.func,
-    children: PropTypes.element
+    children: PropTypes.element,
+    title: PropTypes.string
 }
 
 export default Modal

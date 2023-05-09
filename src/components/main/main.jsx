@@ -1,21 +1,19 @@
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerConstructor from "../burgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../burgerIngredients/burgerIngredients";
-import { dataItemForPropTypes } from "../utils/constants";
 import s from './main.module.css'
-import PropTypes from "prop-types";
 
-const Main = ({ data }) => {
+const Main = () => {
+
     return (
         <main className={s.main}>
-            <BurgerIngredients data={data} />
-            <BurgerConstructor data={data} />
+            <DndProvider backend={HTML5Backend} >
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </DndProvider >
         </main>
     )
-    
-}
-
-Main.propTypes = {
-    data: PropTypes.arrayOf(dataItemForPropTypes).isRequired
 }
 
 export default Main

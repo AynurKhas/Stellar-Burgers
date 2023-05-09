@@ -1,42 +1,46 @@
-import { useState } from "react";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import s from './Specification.module.css';
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import Modal from "../modal/Modal";
-import { dataItemForPropTypes } from "../utils/constants";
+import PropTypes from "prop-types";
+import { dataItemForPropTypes } from "../../utils/constants";
+import { useSelector } from 'react-redux'
+import { useDrag } from "react-dnd";
 
-const Specification = ({ item }) => {
-    const [showModal, setShowModal] = useState(false);
+const Specification = ({ item, handleClick, id }) => {
+    const { burger } = useSelector(store => store.burgerConstructor)
 
-    const modal = (
-        <Modal setShowModal={setShowModal} onClosEsc={() => setShowModal(false)}>
-            <IngredientDetails product={item} setShowModal={setShowModal} />
-        </ Modal>
-    );
+    const [{ isDrag }, drag] = useDrag({
+        type: "ingredient",
+        item: { id },
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    });
+
+    const countСounter = burger.ingredients.filter(el => el._id === item._id).length;
 
     return (
-        <li className={s.ingredients__items} style={{ overflow: 'hidden' }} onClick={() => setShowModal(true)}>
+        <li ref={drag} className={s.ingredients__items} onClick={() => handleClick(item)} >
             <article className={s.specification} >
                 <img src={`${item.image}`} alt={`${item.name}`} className={s.specification__img} />
                 <ul className={s.specification__container}>
                     <li className={s["specification__container-item"]}>
-                        <p className={`${s["specification__container-item-proteins"]} text text_type_digits-default`}>{item.proteins}</p>
+                        <p className={`${s["specification__container-item-proteins"]} text text_type_digits-default`}>{item.price}</p>
                         <CurrencyIcon type="primary" />
                     </li>
                     <li className={s["specification__container-item"]}>
-                        <p className={`$["specification__container-item-name"] text text_type_main-default`}>{item.name}</p>
+                        <p className={`${s["specification__container-item-name"]} text text_type_main-default`}>{item.name}</p>
                     </li>
                 </ul>
-                <Counter count={1} size="default" extraClass="m-1" />
-                {/* {{state.count && <Counter count={1} size="default" extraClass="m-1" />}} */}
+                {(countСounter > 0) && <Counter count={countСounter} size="default" extraClass="m-1" />}
             </article>
-            {showModal && modal}
         </li>
     )
 }
 
 Specification.propTypes = {
-    item: dataItemForPropTypes
-}.isRequired;
+    item: dataItemForPropTypes.isRequired,
+    handleClick: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired
+}
 
 export default Specification

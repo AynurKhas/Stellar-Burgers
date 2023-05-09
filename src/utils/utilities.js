@@ -1,4 +1,4 @@
-import { bun, main, sauce } from "../utils/constants";
+import { bun, main, sauce } from "./constants";
 
 export const getIngredientName = (type) => {
     let ingredient;
